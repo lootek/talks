@@ -96,8 +96,11 @@ becoming a DevSecOps
 .caption [[https://go.dev/play/p/-cgWn3NKo0T]]
 
 
-* strings
+* strings (iterating)
 .play go-tchas/strings.go /^// START/,/^// END/
+
+* strings (performance)
+.code go-tchas/strings-append.go /^// START/,/^// END/
 
 
 * shadowing
