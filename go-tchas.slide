@@ -72,6 +72,10 @@ becoming a DevSecOps
 .caption Source: [[https://www.youtube.com/watch?v=Tl7mi9QmLns][Keith Randall - Inside the Map Implementation]]
 
 
+* channels vs. mutexes
+- mutex -> accessing shared data
+- channels -> communication between goroutines, transferring ownership
+
 * channels (state)
 .image go-tchas/86_state.png _ 800
 .caption Source: [[https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html][ArdanLabs - The Behavior Of Channels]]
@@ -84,11 +88,6 @@ becoming a DevSecOps
 .image go-tchas/86_signaling_with_data.png _ 800
 .image go-tchas/86_signaling_without_data.png _ 800
 .caption Source: [[https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html][ArdanLabs - The Behavior Of Channels]]
-
-
-* channels vs. mutexes
-- mutex -> accessing shared data 
-- channels -> communication between goroutines, transferring ownership
 
 
 * marshal
