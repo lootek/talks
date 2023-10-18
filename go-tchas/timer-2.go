@@ -10,6 +10,7 @@ func main() {
 	ctx, cancelFn := context.WithCancel(context.TODO())
 	defer cancelFn()
 
+	// START OMIT
 	ticker := time.NewTicker(time.Second)
 	defer ticker.Stop()
 
@@ -23,4 +24,5 @@ func main() {
 			return
 		}
 	}
+	// END OMIT
 }

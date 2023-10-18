@@ -116,6 +116,9 @@ becoming a DevSecOps
 * timer leak
 .play go-tchas/timer.go /^// START/,/^// END/
 
+* timer leak fixed
+.play go-tchas/timer-2.go /^// START/,/^// END/
+
 
 * panic
 .play go-tchas/panic.go /^// START/,/^// END/
