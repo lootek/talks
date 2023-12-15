@@ -1,0 +1,217 @@
+Go-tchas
+Splunk EngAcademy 2023
+15 Dec 2023
+Tags: go, golang, gotchas, mistakes, problems
+Summary: Delving into the common traps in Go that we all inadvertently fall into from time to time.
+
+Piotr Luciński
+Principal Engineer, Secrets Management (aka Vault) Team
+https://linkedin.com/in/piotr-lucinski
+https://github.com/lootek
+
+
+* about me
+Go enthusiast since 2013
+a C++ freak before
+trying to forget JavaScript
+
+Splunker since Sep 2023
+becoming a DevSecOps
+
+.image ./go-tchas2/plucinski.png _ 300
+
+
+* how to start with Go
+.link https://go.dev/tour/welcome/1 A Tour of Go
+.link https://go.dev/doc/ Documentation - The Go Programming Language
+.link https://go.dev/doc/effective_go Effective Go - The Go Programming Language
+.link https://github.com/golang/go/wiki/CodeReviewComments CodeReviewComments
+.link https://tip.golang.org/doc/faq Go FAQ
+.link https://go101.org/article/101.html Go101
+.link https://go.dev/play/ The Go Playground
+
+
+* go present
+.link https://pkg.go.dev/golang.org/x/tools/present Go present
+.link https://go.dev/talks/ Official Go talks
+
+
+* everything is a copy
+- no references!
+
+* methods, receivers
+.play go-tchas2/receivers.go /^// START/,/^// END/
+
+* methods, receivers (ctd)
+.play go-tchas2/receivers-2.go /^// START/,/^// END/
+
+* methods, receivers (ctd)
+.play go-tchas2/receivers-3.go /^// START/,/^// END/
+
+
+* slices
+.image go-tchas2/slice.png _ 400
+.caption Source: [[https://dave.cheney.net/2018/07/12/slices-from-the-ground-up][Dave Cheney - Slices from the ground up]]
+
+* slices (ctd: init)
+ s := make([]byte, 5)
+.image go-tchas2/slice-1.png _ 600
+.caption Source: [[https://go.dev/blog/slices-intro][The Go Blog - Go Slices: usage and internals]]
+
+* slices (ctd: reslicing)
+ s = s[2:4]
+.image go-tchas2/slice-2.png _ 600
+.caption Source: [[https://go.dev/blog/slices-intro][The Go Blog - Go Slices: usage and internals]]
+
+* slices (ctd: leak)
+.code go-tchas2/slices-digits-leak.go /^// START/,/^// END/
+
+* slices (ctd: growing)
+.play go-tchas2/slices-append.go /^// START/,/^// END/
+
+* slices (ctd: appending)
+.code go-tchas2/slices-append-2.go /^// START/,/^// END/
+
+* slices (ctd: appending)
+.play go-tchas2/slices-append-2-prints.go /^// START/,/^// END/
+
+
+* maps
+.image go-tchas2/maps1.jpg _ 400
+.image go-tchas2/maps2.png _ 400
+.caption Source: [[https://www.youtube.com/watch?v=Tl7mi9QmLns][Keith Randall - Inside the Map Implementation]]
+
+
+* channels vs. mutexes
+- mutex -> accessing shared data
+- channels -> communication between goroutines, transferring ownership
+
+* channels (state)
+.image go-tchas2/86_state.png _ 800
+.caption Source: [[https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html][ArdanLabs - The Behavior Of Channels]]
+
+* channels (delivery)
+.image go-tchas2/86_guarantee_of_delivery.png _ 800
+.caption Source: [[https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html][ArdanLabs - The Behavior Of Channels]]
+
+* channels (signaling)
+.image go-tchas2/86_signaling_with_data.png _ 800
+.image go-tchas2/86_signaling_without_data.png _ 800
+.caption Source: [[https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html][ArdanLabs - The Behavior Of Channels]]
+
+
+* marshal
+.play go-tchas2/marshal.go /^// START/,/^// END/
+.caption [[https://go.dev/play/p/-cgWn3NKo0T]]
+
+
+* strings (iterating)
+.play go-tchas2/strings.go /^// START/,/^// END/
+
+* strings (performance)
+.code go-tchas2/strings-append.go /^// START/,/^// END/
+
+
+* shadowing
+.code go-tchas2/errors-shadowing.go /^// START/,/^// END/
+
+* shadowing (ctd)
+.play go-tchas2/true-or-false.go
+
+
+* errors handling
+.code go-tchas2/errors-aggregation.go /^// START/,/^// END/
+
+
+* timer leak
+.play go-tchas2/timer.go /^// START/,/^// END/
+
+* timer leak fixed
+.play go-tchas2/timer-2.go /^// START/,/^// END/
+
+
+* panic
+.play go-tchas2/panic.go /^// START/,/^// END/
+
+
+* panic (ctd)
+.play go-tchas2/panic-2.go /^// START/,/^// END/
+
+
+* for loop
+.play go-tchas2/for-loop-0.go /^// START/,/^// END/
+.play go-tchas2/for-loop.go /^// START/,/^// END/
+.play go-tchas2/for-loop-2.go /^// START/,/^// END/
+.play go-tchas2/for-loop-3.go /^// START/,/^// END/
+
+
+* interfaces
+.play go-tchas2/interfaces.go /^// START/,/^// END/
+
+* interfaces (ctd)
+.play go-tchas2/interfaces-2.go /^// START/,/^// END/
+
+* interfaces (ctd)
+.play go-tchas2/interfaces-3.go /^// START/,/^// END/
+
+
+* defer (order)
+.play go-tchas2/defer-stack.go /^// START/,/^// END/
+
+* defer (ctd: scope)
+.code go-tchas2/defer-loop.go /^// START/,/^// END/
+
+* defer (ctd: named return params)
+.play go-tchas2/defer-error.go /^// START/,/^// END/
+
+* defer (ctd: named return params fixed)
+.play go-tchas2/defer-error-fix.go /^// START/,/^// END/
+
+
+* files naming
+- Directory and file names that begin with `.` or `_` are ignored
+- directories named `testdata` are ignored
+- file names ending in `_test.go` are tests
+
+* files naming (build tags)
+- file header:
+
+  //go:build linux
+  // +build linux
+
+- or file name:
+
+  server_linux.go
+
+* files naming (build tags)
+- file header:
+
+  //go:build !windows
+  // +build !windows
+
+- and telling file name:
+
+  server_other.go
+
+
+* low-hanging fruits
+- unit tests
+- race detector
+- pprof
+
+
+* linters
+.link https://golangci-lint.run/usage/linters/ golangci-lint
+.link https://vuln.go.dev/ govulncheck
+
+
+* continuous learning
+.link https://golangweekly.com/ Golang Weekly
+.link https://tip.golang.org/blog/ The Go Blog
+.link https://changelog.com/gotime The Go Time podcast
+
+
+* 
+.image ./go-tchas2/qr.png _ 500
+.caption [[https://go-talks.appspot.com/github.com/lootek/talks/go-tchas2.slide]]
+.caption [[https://github.com/lootek/talks/blob/master/go-tchas2.slide]]
